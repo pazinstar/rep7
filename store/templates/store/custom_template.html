@@ -1,0 +1,181 @@
+
+{% extends "admin/base.html" %}
+
+{% block content %}
+{% load static %} 
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row text-white">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                    <div class="cards mb-4 bg-primary">
+                        <div class="cards-img">
+                            <img src="https://th.bing.com/th/id/R.1a5397766707e0f23299dc84841d4b42?rik=RNranBtmAvKOtA&pid=ImgRaw&r=0" alt="Image 1" class="img-fluid">
+                        </div>
+                        <div class="cards-content">
+                            <div class="cards-body">
+                                <h5 class="card-title">{{users}}</h5>
+                                <p class="card-text">Total Users</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                    <div class="cards mb-4 bg-danger">
+                        <div class="cards-img">
+                            <img src="https://icon-library.com/images/sales-icon-png/sales-icon-png-20.jpg" alt="Image 2" class="img-fluid">
+                        </div>
+                        <div class="cards-content">
+                            <div class="cards-body">
+                                <h5 class="card-title">{{Pending_sales}}</h5>
+                                <p class="card-text">Pending sales</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                    <div class="cards mb-4 bg-success">
+                        <div class="cards-img">
+                            <img src="https://cdn2.iconfinder.com/data/icons/finance-114/34/13-512.png" alt="Image 3" class="img-fluid">
+                        </div>
+                        <div class="cards-content">
+                            <div class="cards-body">
+                                <h5 class="card-title">{{Sold_today}}</h5>
+                                <p class="card-text">Sold out today</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                    <div class="cards mb-4 bg-info">
+                        <div class="cards-img">
+                            <img src="https://th.bing.com/th/id/R.add4709f2032dc82f02a8d6f369dd25f?rik=witBK9OL%2fuJHSQ&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f8%2fInventory-PNG-Photos.png&ehk=ks1OHJJmGE4V4NSr0CDH0WLqT1il733J%2fRhH0kQ7CSA%3d&risl=&pid=ImgRaw&r=0" alt="Image 4" class="img-fluid">
+                        </div>
+                        <div class="cards-content">
+                            <div class="cards-body">
+                                <h5 class="card-title">{{Items}}</h5>
+                                <p class="card-text">Items</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters justify-content-center" id="linechart">
+                <canvas id="line-chart" class="chart-responsive" style="height: 100px;"></canvas>
+            </div>
+           
+        </div>
+        <div class="col-md-3 border border-secondary rounded">
+            <h2 class="text-center">Insights</h2>
+            <div style="margin: 30px;">
+                <h4 class="text-center">Sales by brand</h4>
+                <div class="row no-gutters justify-content-center" style="height: 240px;">
+                    <canvas id="pie-chart" class="chart-responsive" style="height: 300px;"></canvas>
+                </div>
+            </div>
+            <div style="margin: 30px;">
+                <h4 class="text-center">Overall Sales</h4>
+                <div class="row no-gutters justify-content-center">
+                    <canvas id="bar-chart" class="chart-responsive" style="height: 300px;"></canvas>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+   //line chart  
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get data from the server-side context
+        var data = JSON.parse('{{ Line_data|safe }}');
+
+        // Data for the line chart
+        var chartData = {
+            labels: data.labels,
+            datasets: [{
+                label: 'Visitors',
+                data: data.values,
+                fill: false,                          // Disable filling under the line
+                borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                borderWidth: 2                       // Line width
+            }]
+        };
+
+        var ctx = document.getElementById('line-chart').getContext('2d');
+        var myLineChart = new Chart(ctx, {
+            type: 'line',               // Set the chart type to 'line'
+            data: chartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get data from the server-side context
+        var data = JSON.parse('{{ Sales_data|safe }}');
+
+        // Data for the bar chart
+        var chartData = {
+            labels: data.labels,
+            datasets: [{
+                label: 'sales',
+                data: data.values,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Bar color
+                borderColor: 'rgba(75, 192, 192, 1)',      // Border color
+                borderWidth: 1,                            // Border width
+            }]
+        };
+
+        var ctx = document.getElementById('bar-chart').getContext('2d');
+        var myBarChart = new Chart(ctx, {
+            type: 'bar',                // Set the chart type to 'bar'
+            data: chartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get data from the server-side context
+        var data = JSON.parse('{{ Pie_data|safe }}');
+
+        // Data for the pie chart
+        var chartData = {
+            labels: data.labels,
+            datasets: [{
+                data: data.values,
+                backgroundColor: ['red', 'green', 'blue'],  // Define your own colors if needed
+            }]
+        };
+
+        var ctx = document.getElementById('pie-chart').getContext('2d');
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: chartData,
+        });
+    });
+</script>
+
+
+{% endblock %}

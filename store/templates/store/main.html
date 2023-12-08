@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{{ company_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    
+    
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script type="text/javascript">
+        var user = "{{request.user}}"
+        function getItem(name) { 
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getItem('csrftoken');
+    </script>
+</head>
+<body style="background-color: #f6f4f9; ">
+    
+    {% if user.is_authenticated %}
+       
+
+            <nav class="navbar navbar-expand-sm " style="background-color: #7b34c2; padding: 10px; ">
+                <a class="navbar-brand"  href="{% url 'index' %}">{{ company_name }}</a>
+                
+                <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                    <div class="navbar collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto">
+                           
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'home' %}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'market_place' %}">Market Place</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'myactivity' %}">My activity</a>
+                            </li>
+                            <li class="nav-item" id="carts-items">
+                                <div class="d-flex" >
+                                    <a class="nav-link" href="{% url 'cart' %}">
+                                        <span id="cart-total">{{ CartItems }}</span>
+                                        <img style="width: 40px; height: 40px;" id="cart-item" src="{% static 'images/cart.png' %}" alt="">
+                                        
+                                    </a>
+                                    <div>
+                                        <a  class="nav-link" id="nav-links" href="{% url 'cart' %}">Cart</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item" >
+                                <div class="d-flex">
+                                    <div class="profile-data_main_avatar" id="account-item">
+                                        <img src="{% static 'images/avatar.jpg' %}" alt="">
+                                    </div>
+                                    <div>
+                                        <a class="nav-link" href="{% url 'myaccount' %}">Account</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    
+                    </div>
+            
+            </nav>
+
+       
+        
+      
+    {% else %}
+   
+        <nav class="navbar navbar-expand-lg " style="background-color: #7b34c2; padding: 10px; ">
+         <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">{{ company_name }}</a>   
+            <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-white"></span>
+            </button>
+           
+                <div class="navbar collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                    
+                            <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signin' %}">Signin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signup' %}">Singup</a>
+                    </li>
+                       
+                  
+                </div>
+
+         </div>
+          
+         
+        </nav>
+
+   
+
+       
+    {% endif %}
+    <div style="background-color: #f6f4f9;">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+   
+   
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var togglerButton = document.querySelector('.navbar-toggler');
+        var cartItem = document.getElementById('cart-item');
+        var accountItem = document.getElementById('account-item');
+
+        togglerButton.addEventListener('click', function () {
+            cartItem.style.display = 'none';
+            accountItem.style.display = 'none';
+        });
+    });
+</script>
+</body>
+</html>

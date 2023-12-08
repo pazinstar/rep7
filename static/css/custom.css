@@ -1,0 +1,45 @@
+.cards-content{
+    text-align: center; /* Center align card content */
+    justify-content: center;
+    border-radius: 15px; /* Add border radius */
+    padding: 10px; /* Add padding for card content */
+    max-width: 56;
+}
+.cards-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.cards {
+    width: 200px; /* Set a fixed width */
+    max-width: 100%; /* Prevent cards from exceeding 300px */
+    height: 220px; /* Set a fixed height for all cards */
+    margin: 10px; /* Add margin for spacing */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cards img {
+    width: 100px;
+    max-width: 100%; /* Ensure images stay within their containers */
+    height: auto; /* Preserve aspect ratio */
+    display: block;
+    margin: 0 auto;
+}
+.sidebars {
+   
+    background-color: #ffffff; /* Background color for the sidebar */
+    padding: 20px; /* Add padding for the sidebar content */
+    border: 2px solid #ddd; /* Add a border to separate the sidebar */
+}
+/* Default styles for the chart */
+#linechart {
+    width: 100%; /* Full width on all screen sizes */
+    height: 60%; /* Default height */
+}
+
+

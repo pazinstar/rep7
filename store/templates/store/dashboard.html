@@ -1,0 +1,144 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <br>
+<div class="row">
+  <div class="container"> 
+
+      <div class="row ">
+   
+            <h3 class="font-weight-bold">Flash sales: </h3><br>
+           
+             <h4 style="color: rgb(170, 39, 83);" id="demo"></h4>
+        
+      </div><br>
+      <div class="row">
+          <div class="d-flex flex-row  flex-nowrap">
+            {% for item in Flash_cards %}
+              <div id="Flash_cards"  class="card card-body shadow p-3  mb-5 bg-body rounded" > 
+                    <h5 style="font-weight: bold; color: blue;"> {{item.cardName}}</h5> 
+                    <div class="background-image" style="background-image: url('{{ item.ImageUrl}}'); background-position: center; ">
+                    </div>
+
+                    <p class="discountSaved"> Save: {{item.discount}}%</p>
+                    <h6 style="font-weight: bolder; color: rgb(87, 78, 211);"> Price: {{item.price}}</h6> 
+                    <button type="button" class="btn btn-primary btn-sm">Buy Now</button>
+              </div>
+            {% endfor %}
+
+          </div>
+      </div>
+  </div>
+</div>
+<br><br>
+
+<div class="row">
+ 
+      <div class="row"> 
+          <div style="margin: auto;">
+              <h5>Gift Cards</h5>
+          </div>
+      </div>
+          <br>
+      <div class="row">
+        <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-12 col-md-8">
+                  <div id="autocomplete" class="autocomplete input-group mb-3">
+                      <input type="text" id="searchInput" class="autocomplete-input form-control" placeholder="Search for Gift cards">
+                      <div class="input-group-append">
+                          <button class="btn btn-primary" type="button" id="searchButton">Search</button>
+                      </div>
+                      <ul id="fileList" class="autocomplete-result-list list-group"></ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div> 
+  
+</div> 
+<br><br>
+
+    <div class="row">
+      <div class="container">
+        <div class="row" style="margin:auto;">
+
+          {% for item in products %}
+            <div class="col  border shadow p-3" id="giftcards">
+                             
+                  <h5> {{ item.name }}</h5>  
+                  <img src="{{ item.imageURL }}" alt="">
+                              
+           
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+</div>
+
+
+    
+<script>
+
+  var countDownDate = new Date("Dec 25, 2023 15:37:25").getTime();
+
+  var x = setInterval(function() {
+
+    var now = new Date().getTime();
+
+    var distance = countDownDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("demo").innerHTML ="Offer ends in: "+ days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+  }, 1000);
+  // setTimeout(function () {
+  //       window.location.reload();
+  //   }, 5000);
+  new Autocomplete('#autocomplete', {
+    search : input => {
+        
+        const url = `/get_items/?search=${input}`
+        return new Promise(resolve => {
+            fetch(url)
+            .then(response => response.json())
+            .then(data =>{
+                
+                resolve(data.payload)
+            })
+        })
+    },
+    renderResult : (result, props) => {
+        
+        let group = ''
+        if(result.index % 3 == 0){
+            group = `<li class="group">Group</li>`
+        }
+        return `
+                ${group}
+                <li ${props}>
+                    <div class="wiki-title">
+                        ${result.name}
+                    </div>
+                </li>
+            `
+        }
+  })
+</script>
+
+
+
+
+{% endblock content %}

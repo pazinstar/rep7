@@ -1,0 +1,14 @@
+{% autoescape off %}
+<h4>Hello {{ name }},</h4><br>
+Welcome to Darksales Secret Hackers Club Ecommerce platform <br>
+Confirm your email by clicking on the confirmation link below 
+<br>
+<br>
+<a href="https://{{ domain }}{% url 'activate' uidb64=uid token=token%}">confirmation link</a>
+
+<br>
+<br>
+Regards,
+Darksales SHC Team
+
+{% endautoescape %}

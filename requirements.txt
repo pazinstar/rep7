@@ -1,0 +1,6 @@
+coinbase-commerce==1.0.1
+Django==4.2.6
+django-jazzmin==2.6.0
+django-recaptcha==3.0.0
+stripe==7.3.0
+whitenoise

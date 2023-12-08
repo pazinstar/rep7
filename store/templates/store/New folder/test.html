@@ -1,0 +1,78 @@
+<div class="tab-container">
+    <button class="tab-button active" onclick="showTab('transactions')">Transactions</button>
+    <button class="tab-button" onclick="showTab('history')">History</button>
+    <div class="content-container">
+      <div class="tab-content" id="transactions-content">
+        <!-- Content for the "Transactions" tab with a yellow background -->
+        <div class="yellow-container">This is the Transactions content.</div>
+      </div>
+      <div class="tab-content" id="history-content">
+        <!-- Content for the "History" tab with a brown background -->
+        <div class="brown-container">This is the History content.</div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <style>
+.tab-container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.tab-button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+}
+
+.tab-button.active {
+  background-color: #e0e0e0;
+}
+
+.content-container {
+  border: 1px solid #ddd;
+}
+
+.tab-content {
+  display: none;
+  padding: 10px;
+}
+
+.yellow-container {
+  background-color: yellow;
+}
+
+.brown-container {
+  background-color: brown;
+}
+
+
+  </style>
+
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<script>
+function showTab(tabName) {
+  const tabContents = document.querySelectorAll(".tab-content");
+  const tabButtons = document.querySelectorAll(".tab-button");
+
+  tabContents.forEach((content) => {
+    content.style.display = "none";
+  });
+
+  tabButtons.forEach((button) => {
+    button.classList.remove("active");
+  });
+
+  const selectedTab = document.getElementById(tabName + "-content");
+  selectedTab.style.display = "block";
+
+  const selectedButton = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+  selectedButton.classList.add("active");
+}
+
+</script>

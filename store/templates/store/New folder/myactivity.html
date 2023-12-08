@@ -1,0 +1,151 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container main-cont col-lg-8" style="height: 800px;"><br>
+    <!-- Pills navs -->
+    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+        <li class="nav-item" role="presentation" >
+            <button class="tab-button active nav-link" onclick="showTab('transactions')">Transactions</button>
+
+        </li>
+        <li class="nav-item" role="presentation" >
+            <button class="tab-button nav-link" onclick="showTab('history')">History</button>
+
+        </li>
+    </ul>
+
+    <hr>    
+
+    <!-- Pills navs -->
+
+    <!-- Pills content -->
+    <div class="content-container">
+        <div class="tab-content" id="transactions-content" style="display: block;">
+        
+            <div class="col-lg-12" >
+                {% if not transactions %}
+                    <p>No Transactions Found</p>
+                {% else %}
+                    {% for transaction in transactions %}
+                    <div class="row myactivity_transactions">
+                        <div class="col-lg-4" style="background-color: rgb(67, 246, 82);">
+                            {{ transaction.Transaction_id }}
+                        </div>
+                        <div class="col-lg-4" style="background-color: rgb(11, 157, 121);">
+                            $ {{ transaction.amount|floatformat:2 }}
+                        </div>
+                        <div class="col-lg-4" style="background-color: rgb(28, 154, 170);">
+                            date/status
+                        </div>
+                    </div> 
+                    
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="tab-content" id="history-content">
+       
+            <div class="col-lg-12">
+                {% if not transactions %}
+                    <p>No History Found</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Pills content -->
+    <!-- <div class="col-lg-8">
+        {% for transaction in transactions %}
+            <p>{{ transaction.customer }}</p>
+            <p>Balance : $ {{ transaction.customer.balance|floatformat:2 }}</p>
+            <p>transaction_id: {{ transaction.Transaction_id }}</p>
+            <p>Email: {{ transaction.customer.email }}</p>
+            <p>transaction amount : $ {{ transaction.amount|floatformat:2 }}</p> <br><br>
+        {% endfor %}
+    </div> -->
+</div>
+
+<style>
+    .tab-container {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+    
+    .tab-button {
+      background-color: #aacff0;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      text-align: center;
+      outline: none;
+    }
+    .tab-content .col-lg-12 p{
+        text-align: center;
+        font-weight: bold;
+
+    }
+    
+    /* .tab-button.active {
+      background-color: #811414;
+    } */
+    
+    .myactivity_transactions {
+      padding: 1%;
+      border: 1px #000000;
+      /* border-width: 5px; */
+    }
+   
+    .tab-content {
+      display: none;
+      padding: 10px;
+    }
+    
+    .yellow-container {
+      background-color: yellow;
+    }
+    
+    .brown-container {
+      background-color: brown;
+    }
+    
+</style>
+
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<script>
+     
+    function showTab(tabName) {
+        const tabContents = document.querySelectorAll(".tab-content");
+        const tabButtons = document.querySelectorAll(".tab-button");
+    
+        tabContents.forEach((content) => {
+        content.style.display = "none";
+        });
+    
+        tabButtons.forEach((button) => {
+        button.classList.remove("active");
+        });
+    
+        const selectedTab = document.getElementById(tabName + "-content");
+        selectedTab.style.display = "block";
+    
+        const selectedButton = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+        selectedButton.classList.add("active");
+    }
+    
+</script>
+
+{% endblock content %}
+
+
+    

@@ -1,0 +1,141 @@
+{% extends "website/base.html" %} 
+{% load static %}
+{% block content %}
+<!-- Body content for the home page goes here -->
+<br>
+
+
+<div class="container">
+      <div id="slider-container">
+        <div id="slider">
+          <div class="slide"><img  id="barner_img" src="https://th.bing.com/th/id/R.21691b0996864ffd5eed5b98dd16ec07?rik=PoQOEShvHEBdZg&pid=ImgRaw&r=0" alt="Slide 2"></div>
+             <div class="slide"><img id="barner_img" src="https://i.redd.it/49mkfniodt321.jpg" alt="Slide 2"></div>
+            <div class="slide"><img  id="barner_img" src="https://th.bing.com/th/id/R.c618314b3990ecf85e0cfd5cad890245?rik=Agkn7Y6239ouWA&riu=http%3a%2f%2fcdn.cpnscdn.com%2fstatic.coupons.com%2fcms%2f2014%2f05%2fCC_CI_EP_Hero_Sephora_Final1.png&ehk=qlM8BUsERzdqcjsX3j5XfFf0MHAnZAzFsny0FeZtxNg%3d&risl=&pid=ImgRaw&r=0" alt="Slide 3"></div>
+            <div class="slide"><img id="barner_img"  src="https://cdn5.f-cdn.com/contestentries/1538633/36236985/5d31d162a5c26_thumb900.jpg" alt="Slide 2"></div>
+           <div class="slide"><img  id="barner_img" src="https://www.concept-nova.com/img/banners/join-us-banner.jpg" alt="Slide 2"></div>
+
+            <!-- Add more slides as needed -->
+        </div>
+      </div>
+  
+   
+    
+      <div class="word" id="word"></div>
+
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-4 col-sm-12 mt-sm-2 mb-sm-2 " style="padding-bottom: 20px;">
+          <div class="card mb-sm-2 shadow">
+            <img id="base_img" style="max-height:150px;" src="https://th.bing.com/th/id/OIP.en655K1xLigDq0CKquLJRgHaD4?w=345&h=181&c=7&r=0&o=5&dpr=1.1&pid=1.7" class="card-img-top" alt="Gift Card 3">
+            <div class="card-body pb-sm-2">
+                <h5 class="card-title">Amazon</h5>
+                <p class="card-text">Surprise someone with delightful gift card.</p>
+                <a href="{% url 'signin' %}" class="btn btn-primary" >Buy Now</a>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-md-4 col-sm-12 mt-sm-2 mb-sm-2" style="padding-bottom: 20px;">
+          <div class="card mb-sm-2 shadow"  >
+            <img id="base_img" style="max-height:150px;" src="https://1.bp.blogspot.com/-MgCio8umYLA/XoxGZVzA4YI/AAAAAAAAAEU/Xe-_Vn2gQ8cHBEnd9DH2GhBInsmoEx7WwCLcBGAsYHQ/s320/walmart-gift-card-png-17.png"  alt="Gift Card 1">
+            <div class="card-body pb-sm-2">
+                <h5 class="card-title">Walmart</h5>
+                <p class="card-text">Perfect for birthdays and special occasions.</p>
+                <a href="{% url 'signin' %}" class="btn btn-primary">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 mt-sm-2 mb-sm-2" style="padding-bottom: 20px;">
+          <div class="card mb-sm-2 shadow">
+            <img id="base_img" style="max-height:150px;" src="https://assets1.csnews.com/files/styles/primary_articles_short/s3/GiftCard.jpg?itok=TFFLaTwC" class="card-img-top" alt="Gift Card 2">
+            <div class="card-body">
+                <h5 class="card-title">Lovely</h5>
+                <p class="card-text">A thoughtful gift for your loved.</p>
+                <a href="{% url 'signin' %}" class="btn btn-primary">Buy Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="indx">
+          <h1 id="rotating-text">Find the Perfect Gift Card</h1>
+    </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" style="justify-content: center;">
+      <div class="col-8 text-center">
+          <h5 class="lead" style="text-align: center;">Shop from a variety of gift cards available on our platform</h5>
+        <a class="btn btn-primary mt-3"href="{% url 'signin' %}">Market place</a>
+      </div>
+    </div>
+</div>
+<br>
+<script>
+    const slider = document.getElementById('slider');
+    let slideIndex = 0;
+
+    function nextSlide() {
+        if (slideIndex < slider.children.length - 1) {
+            slideIndex++;
+        } else {
+            slideIndex = 0;
+        }
+        updateSlider();
+    }
+
+    function updateSlider() {
+        slider.style.transform = `translateX(${-slideIndex * 100}%)`;
+    }
+
+    setInterval(nextSlide, 5000); // Change slide every 3 seconds
+
+
+
+
+
+
+    var countDownDate = new Date("Dec 25, 2023 15:37:25").getTime();
+
+var x = setInterval(function() {
+
+  var now = new Date().getTime();
+
+  var distance = countDownDate - now;
+
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("demo").innerHTML ="Offer ends in: "+ days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const rotatingTextElement = document.getElementById('rotating-text');
+    const texts = ["Join us in creating memorable moments", "Save up to 40%", "All gift card available"];  // Add your different texts here
+
+    let index = 0;
+
+    function rotateText() {
+        rotatingTextElement.textContent = texts[index];
+        index = (index + 1) % texts.length;
+    }
+
+    // Initial rotation
+    rotateText();
+
+    // Set interval to rotate text every 3 seconds
+    setInterval(rotateText, 3000);
+});
+
+
+</script>
+{% endblock %}

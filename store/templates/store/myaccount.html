@@ -1,0 +1,98 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container main-cont col-lg-8 my_acount_card">
+  <div class="container mt-5">
+    <h1>Good Afternoon, {{customer.name}}</h1>
+    <p>Your account information and orders:</p>
+  
+    <!-- User information -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" style="font-weight: bold; margin-left: 5px;">Account Information</h4>
+                    <div class="row" style="background-color: gray; height: 1px; width: 98%; margin: auto;"></div>
+                    <br>
+                    <p class="card-text">Name: {{customer.name}}</p>
+                    <p class="card-text">Email: {{customer.email}}</p>
+                    <p class="card-text">Phone: [[_phone_no_]]</p>
+                    <h3 class="card-text">Balance: <span style="font-weight: bold;">${{customer.balance|floatformat:2}}</span></h3> <br>
+                    <a href="#" class="btn btn-primary" style="border-radius: 8px; background-color: rgb(23, 144, 224);">Edit Profile</a>
+                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Options" style="margin-left: 50px; border-radius: 8px; background-color: rgb(23, 144, 224);">Add Funds</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                  <h4 style="margin-left: 5px; font-weight: bold;" class="card-title">Recent Actions</h4>
+                  <div class="row" style="background-color: gray; height: 1px; width: 98%; margin: auto;"></div>
+                  <br>
+                    <!-- List recent orders here -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" style="margin-top: 20px;">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="margin-left: 5px; font-weight: bold;" class="card-title">More Actions</h4>
+                    <div class="row" style="background-color: gray; height: 1px; width: 98%; margin: auto;"></div>
+                    <br>
+                  <ul>
+                      <li><a href="#">Personal Info</a></li>
+                      <li><a href="#">Change Password</a></li>
+                      <li><a href="#">Notifications</a></li>
+                      <li><a href="#">Invite Friends</a></li>
+                      <li><a href="{% url 'signout' %}">Logout</a></li>
+                  </ul>
+                    <!-- List recent orders here -->
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+
+    <div class="modal fade" id="Options" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="ModalLongTitle">Choose Payment options</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li><h6><a href="#" onclick="addFunds()">Bank Transfers</a></h6></li>
+              <li><h6><a href="#" onclick="addFunds()">Credit/Debit Card</a></h6></li>
+              <li><h6><a href="#" onclick="addFunds()">PayPal</a></h6></li>
+              <li><h6><a href="#" onclick="addFunds()">Cryptocurrency Payments</a></h6></li>
+              <li><h6><a href="#" onclick="addFunds()">Cash Payment</a></h6></li>
+              <li><h6><a href="#" onclick="addFunds()">M-Pesa</a></h6></li>
+              <li><h6><a href="#" onclick="addFunds()">E-Wallets</a></h6></li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      function addFunds() {
+        alert("Adding funds feature has not yet been implemented.");
+      }
+    </script>
+    
+
+    <script>
+        function addFunds() {
+            alert("Adding funds feature has not yet been implemented.");
+        }
+    </script>
+
+</div>
+{% endblock content %}

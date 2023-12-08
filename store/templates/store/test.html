@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Sliding Images</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #slider-container {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div id="slider-container">
+    <div id="slider">
+        <div class="slide"><img src="https://th.bing.com/th/id/OIP.YuvMDy_y3vSvfK2ZxQD7QAHaE8?w=804&h=536&rs=1&pid=ImgDetMain" alt="Slide 1"></div>
+        <div class="slide"><img src="https://th.bing.com/th/id/OIP.7ZmSy_TQoGR0Sd4Xz1fqdQHaEK?rs=1&pid=ImgDetMain" alt="Slide 2"></div>
+        <div class="slide"><img src="https://th.bing.com/th/id/OIP.YuvMDy_y3vSvfK2ZxQD7QAHaE8?w=804&h=536&rs=1&pid=ImgDetMain" alt="Slide 3"></div>
+        <!-- Add more slides as needed -->
+    </div>
+</div>
+
+<script>
+    const slider = document.getElementById('slider');
+    let slideIndex = 0;
+
+    function nextSlide() {
+        if (slideIndex < slider.children.length - 1) {
+            slideIndex++;
+        } else {
+            slideIndex = 0;
+        }
+        updateSlider();
+    }
+
+    function updateSlider() {
+        slider.style.transform = `translateX(${-slideIndex * 100}%)`;
+    }
+
+    setInterval(nextSlide, 3000); // Change slide every 3 seconds
+</script>
+
+</body>
+</html>

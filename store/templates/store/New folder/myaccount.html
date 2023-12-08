@@ -1,0 +1,80 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container main-cont col-lg-8 my_acount_card">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-lg-7 main-cont ">
+                        <img src="user-avatar.jpg" alt="User Avatar" class="card-img-top">
+                        <div class="card-body">
+                            <h5  class="card-title">{{customer.name}}</h5>
+                            <p class="card-text">{{customer.email}}</p>
+                            <p class="card-text">Balance : $ {{customer.balance|floatformat:2}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 btn_add_funds">
+                        <!-- <button  class="btn btn-primary mt-3 " onclick=addFunds()>Add Funds</button> -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Options">
+                            Add funds
+                          </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 box2">
+                <h2>User Profile</h2>
+                <ul>
+                    <li><a href="#">Personal Info</a></li>
+                    <li><a href="#">Change Password</a></li>
+                    <li><a href="#">Notifications</a></li>
+                    <li><a href="#">Invite Friends</a></li>
+                    <li><a href="{% url 'signout' %}">Logout</a></li>
+                </ul>
+            </div>
+           
+        </div>
+    </div>
+    <!-- Modal -->
+  <div class="modal fade" id="Options" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="ModalLongTitle">Choose Payment options</h3>
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <div class="modal-body">
+        <ul> 
+            <li><h5><a href="#" onclick=addFunds()>Bank Transfers</a></h5></li>
+            <li><h5><a href="#" onclick=addFunds()>Credit/Debit Card</a></h5></li>
+            <li><h5><a href="#" onclick=addFunds()>PayPal</a></h5></li>
+            <li><h5><a href="#" onclick=addFunds()>Cryptocurrency Payments</a></h5></li>
+            <li><h5><a href="#" onclick=addFunds()>Cash Payment</a></h5></li>
+            <li><h5><a href="#" onclick=addFunds()>M-Pesa</a></h5></li>
+            <li><h5><a href="#" onclick=addFunds()>E-Wallets</a></h5></li>
+           
+        </ul>
+    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+    
+
+    <script>
+        function addFunds() {
+            alert("Adding funds feature has not yet been implemented.");
+        }
+    </script>
+
+
+</div>
+{% endblock content %}

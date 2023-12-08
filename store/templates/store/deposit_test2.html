@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Checkout</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #checkout-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Checkout</h1>
+    
+    <button id="checkout-button">Checkout</button>
+
+    <script>
+        var stripe = Stripe('your-publishable-key');
+
+        document.getElementById('checkout-button').addEventListener('click', function() {
+            // Call your server to create a Checkout Session
+            fetch('/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    items: [{ id: 'item_12345', quantity: 1 }],
+                }),
+            })
+            .then(response => response.json())
+            .then(session => {
+                // Redirect to Checkout
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(result => {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
